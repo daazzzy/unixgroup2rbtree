@@ -20,8 +20,10 @@
 // 1. open names files. DONE
 // 2. cut everything after first name. DONE
 // 3. hash first names. DONE
-// 4. create rbtree.
-// 5. populate rbtree.
+// 4. INIT rbtree. DONE
+// 5. insert hashed values to rbtree. DONE
+// 6. queue duplicates.
+
 typedef unsigned int __uintptr_t;
 
 typedef struct node {
@@ -33,9 +35,9 @@ int compare_names_hash(struct node *a, struct node *b){
     uint64_t hashA = XXH64(a->name, strlen(a->name), 0);
     uint64_t hashB = XXH64(b->name, strlen(b->name), 0);
 
-    if (hashA < hashB){
+    if (a < b){
         return -1;
-    }else if (hashA > hashB){
+    }else if (a > b){
         return 1;
     }else {
         return 0;
@@ -58,7 +60,7 @@ void print_tree(struct node *n) {
     if(left == NULL && right == NULL){
         printf("%d", n -> name);
     }else {
-        printf("%d\n (", n->name);
+        printf("%d\n", n->name);
 		print_tree(left);
         printf(",");
         print_tree(right);
@@ -74,12 +76,12 @@ int main() {
     }
     char *line = NULL;
     size_t len = 0;
-    size_t read;
     int i;
     struct node *n;
 
-    while((read = getline(&line, &len, fp)) != -1){
+    while(getline(&line, &len, fp) != -1){
         char *first_name = strtok(line, " \t\n");
+        // printf("%s \n", first_name);
         uint64_t hash = XXH64(first_name, strlen(first_name), 0);
         n = malloc(sizeof(struct node));
         n->name = malloc(strlen(first_name) + 1);
