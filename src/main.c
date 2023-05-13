@@ -22,7 +22,8 @@
 // 3. hash first names. DONE
 // 4. INIT rbtree. DONE
 // 5. insert hashed values to rbtree. DONE
-// 6. queue duplicates.
+// 6. create red-black balancing
+// 7. queue duplicates.
 
 typedef unsigned int __uintptr_t;
 
@@ -79,7 +80,7 @@ int main() {
     int i;
     struct node *n;
 
-    while(getline(&line, &len, fp) != -1){
+    while(getline(&line, &len, fp) != -1) {
         char *first_name = strtok(line, " \t\n");
         // printf("%s \n", first_name);
         uint64_t hash = XXH64(first_name, strlen(first_name), 0);
