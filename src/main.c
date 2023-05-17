@@ -73,31 +73,6 @@ void print_tree(struct node *n) {
 
 }
 
-// CHATGPT GENERATED TREE PRINT:
-// void print_tree(struct node *n, int depth) {
-//     if (n == NULL) {
-//         // print "nil" for null nodes
-//         printf("%*s|------- nil\n", depth * 2, "");
-//         return;
-//     }
-
-//     // print the current node with indentation and vertical bars
-//     if (RB_PARENT(n, entry) != NULL && RB_LEFT(RB_PARENT(n, entry), entry) == n) {
-//         // current node is the left child of its parent
-//         printf("%*s|------- %d\n", depth * 2, "", n->name);
-//     } else if (RB_PARENT(n, entry) != NULL && RB_RIGHT(RB_PARENT(n, entry), entry) == n) {
-//         // current node is the right child of its parent
-//         printf("%*s\\------- %d\n", depth * 2, "", n->name);
-//     } else {
-//         // current node is the root
-//         printf("%d\n", n->name);
-//     }
-
-//     // recursively print the left and right subtrees
-//     print_tree(RB_LEFT(n, entry), depth + 1);
-//     print_tree(RB_RIGHT(n, entry), depth + 1);
-// }
-
 int main() {
     FILE *fp = fopen("../teamsarray.txt", "r");
     struct stud_tree node;
@@ -125,7 +100,7 @@ int main() {
         }
     }
     RB_FOREACH(n, stud_tree, &head){
-        // printf("%d\n", n->name);
+        printf("%d\n", n->name);
         struct node *dup_iterator;
         TAILQ_FOREACH(dup_iterator, &n->duplicates, dup_node){
             printf("%d, ", dup_iterator->name);
@@ -134,13 +109,21 @@ int main() {
     printf("\n");
     printf("stud_tree:\n");
     print_tree(RB_ROOT(&head));
+    printf("\n");
 
-    // struct node *var;
-    // for (var = RB_MIN(n, &head); var != NULL; var = n->name){
-    //     var = RB_NEXT(n, &head, var);
-    //     RB_REMOVE(n, &head, var);
-    //     free(var);
-    // }
+
+    // char s[] = "test";
+    // uint64_t hashTest = XXH64(s, strlen(s), 0);
+    // uint64_t hashTest1 = XXH64(s, strlen(s), 0);
+    // printf("%u\n", hashTest);
+    // printf("%u", hashTest1);
+    struct node *var;
+    struct node *nxt;
+    for(var = RB_MIN(stud_tree, &head); var != NULL; var = nxt){
+        var = RB_NEXT(stud_tree, &head, var);
+        RB_REMOVE(stud_tree, &head, var);
+        free(var);
+    }
     fclose(fp);
     exit(EXIT_SUCCESS);
 }
