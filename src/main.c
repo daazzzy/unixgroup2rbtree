@@ -93,7 +93,7 @@ void free_memory(node_t *n){
     }
 
     RB_REMOVE(stud_tree, &head, n);
-    free(n->name);
+    // free(n->name);
     free(n);
 
     free_memory(left);
@@ -134,29 +134,9 @@ int main() {
         }
     }
 
-  
-    // RB_FOREACH(n, stud_tree, &head){
-    // //     printf("%u\n", n->name);
-    // //     node_t *dup_iterator;
-    // //     TAILQ_FOREACH(dup_iterator, &n->duplicates, dup_node){
-    // //         printf(", %lu ", dup_iterator->name);
-    // //     }
-    // //     printf("\n");
-    // }
-
     printf("stud_tree:\n");
     print_tree(RB_ROOT(&head));
     printf("\n");
-
-    // node_t *var;
-    // node_t *nxt;
-    // for(var = RB_MIN(stud_tree, &head); var != NULL; var = nxt){
-    //     var = RB_NEXT(stud_tree, &head, var);
-    //     RB_REMOVE(stud_tree, &head, var);
-    //     free(var->name);
-    //     free(var);
-    //     free(var->hash_key);
-    // }
 
     free_memory(RB_ROOT(&head));
 
