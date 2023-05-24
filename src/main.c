@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "../queue.h"
-#include "../tree.h"
+#include <sys/queue.h>
+#include <sys/tree.h>
 #include <xxhash.h>
 #include <stdlib.h>
 #include <string.h>
@@ -25,8 +25,6 @@
 // 6. create red-black balancing. ????
 // 7. queue duplicates. DONE
 // 8. fix memory leaks.
-
-typedef unsigned int __uintptr_t;
 typedef struct node {
     RB_ENTRY(node) entry;
     char *name;
@@ -93,7 +91,6 @@ void free_memory(node_t *n){
     }
 
     RB_REMOVE(stud_tree, &head, n);
-    // free(n->name);
     free(n);
 
     free_memory(left);
